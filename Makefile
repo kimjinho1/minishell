@@ -97,8 +97,8 @@ re: fclean all
 # 있는 환경변수의 경우 해석한 문자열로 변경
 # 없는 환경변수의 경우 빈 문자열로 변경
 
-# 3. double quote("") 처리
-# single quote 일 때 따로 하는게 없으므로 토큰을 string으로 변경
+# 3. single quote('') 처리
+# single quote일 때 따로 하는게 없으므로 토큰을 string으로 변경
 
 # 4. double quote("") 처리
 # 문자열 안에 해석할 내용이 있다면 싹다 해석
@@ -119,7 +119,6 @@ re: fclean all
 # 7. 에러가 있었다면 break -> g_exit_code = 258
 # 여기서 나오는 에러(오퍼레이터 뒤에 오퍼레이터, redirection 뒤에 아무것도 없음)의 
 # 경우 이후에 명령들을 실행 안시키기 때문에 break 해줌
-
 
 # --- 3 리다이랙션 ---
 # 1. <(input) 처리 -> 맨 마지막 <의 fd만 기억한다.
@@ -145,7 +144,6 @@ re: fclean all
 
 # 2. cd(with only a relative or absolute path)
 # error: 에러 나는 경우가 없음
-# error: 인자가 2개 이상 있는 경우 -> 뒤에 꺼 무시함
 # cd -> home 경로로
 # 상대 경로 -> cd ../test
 # 절대 경로 -> cd ~/test
@@ -166,7 +164,7 @@ re: fclean all
 
 # 5. unset(with no options)
 # error: 에러 나는 경우가 없음
-# 있는 환경 변수만 cp_envp 에서 삭제하기
+# 존재하는 환경 변수만 cp_envp 에서 삭제하기
 
 # 6. env(with no options or arguments)
 # error: 인자가 있는 경우 -> g_exit_code = 1
@@ -176,14 +174,14 @@ re: fclean all
 # 7. exit(with no options)
 # error: 인자가 2개 이상인 경우 -> g_exit_code = 1
 # error: 인자가 숫자가 아닌 경우 -> g_exit_code = 255
-# error 아닌  경우 -> cmd_arr[1]로 exit 해줌
+# error 아닌 경우 -> cmd_arr[1]로 exit 해줌
 
 
 # --- 5. 시그널 ---
 # 입력 아무 것도 없을 때
 # cntl-c -> 새 minishell$ 출력
 # cntl-\ -> 신호 무시
-# cntl-d -> 새 minishell$ 출력
+# cntl-d -> minishell 종료
 
 # 입력이 들어간 상태일 때
 # cntl-c -> 새 minishell$ 출력, read_buffer 삭제
